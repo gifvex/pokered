@@ -1,4 +1,4 @@
-PrepareOAMData::
+PrepareOAMDataAAAA::
 ; Determine OAM data for currently visible
 ; sprites and write it to wShadowOAM.
 
@@ -11,15 +11,54 @@ PrepareOAMData::
 	ld [wUpdateSpritesEnabled], a
 	jp HideSprites
 
+.stall
+	ld a, 9
+.loop
+	dec a
+	jr nz, .loop
+	jp .spriteLoop
+
 .updateEnabled
 	xor a
 	ldh [hOAMBufferOffset], a
+
+	ldh a, [hAAAA]
+	and a
+	jr z, .stall
+
+	ld h, $40
+
+	ldh a, [rSCX]
+	add h
+	rrca
+	rrca
+	rrca
+	ld b, $98
+	ld c, a
+
+	ldh a, [rSCY]
+	add h
+	ld l, a
+	add hl, hl
+	add hl, hl
+	add hl, bc
+
+	ld a, "<BOLD_A>"
+	ld [hli], a
+	ld [hld], a
+	ld bc, BG_MAP_WIDTH
+	add hl, bc
+	ld [hli], a
+	ld [hl], a
+
+	xor a
+	ldh [hAAAA], a
 
 .spriteLoop
 	ldh [hSpriteOffset2], a
 
 	ld d, HIGH(wSpriteStateData1)
-	ldh a, [hSpriteOffset2]
+	; ldh a, [hSpriteOffset2]
 	ld e, a
 	ld a, [de] ; [x#SPRITESTATEDATA1_PICTUREID]
 	and a

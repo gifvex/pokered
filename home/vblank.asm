@@ -30,7 +30,7 @@ VBlank::
 	ld a, BANK(PrepareOAMData)
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call PrepareOAMData
+	call PrepareOAMDataAAAA
 
 	; VBlank-sensitive operations end.
 

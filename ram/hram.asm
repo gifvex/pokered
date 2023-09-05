@@ -399,4 +399,6 @@ hJoyInput:: db
 
 hDisableJoypadPolling:: db
 
-	ds 5
+hAAAA:: db
+
+	ds 4

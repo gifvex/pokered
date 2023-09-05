@@ -4,8 +4,8 @@ UpdateCinnabarGymGateTileBlocks::
 CheckForHiddenObjectOrBookshelfOrCardKeyDoor::
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [hJoyHeld]
-	bit BIT_A_BUTTON, a
+	ldh [hAAAA], a
+	and $ff
 	jr z, .nothingFound
 ; A button is pressed
 	ld a, BANK(CheckForHiddenObject)
